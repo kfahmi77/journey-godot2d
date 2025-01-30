@@ -1,0 +1,208 @@
+[gd_scene load_steps=13 format=3 uid="uid://bj2f72funlyj0"]
+
+[ext_resource type="Texture2D" uid="uid://cc34ufvhs6yuh" path="res://assets/character/Bot Wheel/static idle.png" id="1_akqgr"]
+[ext_resource type="Texture2D" uid="uid://cbok82ggerenw" path="res://assets/character/Bot Wheel/death.png" id="1_qrv84"]
+[ext_resource type="Texture2D" uid="uid://bg00eo843g4to" path="res://assets/character/Bot Wheel/damaged.png" id="2_eutbd"]
+[ext_resource type="Texture2D" uid="uid://b1mscxy1b6nug" path="res://assets/character/Bot Wheel/move with FX.png" id="3_bunup"]
+[ext_resource type="Texture2D" uid="uid://b327fhgpvnt1e" path="res://assets/character/Bot Wheel/shoot without FX.png" id="4_34a4o"]
+
+[sub_resource type="Animation" id="Animation_2qoij"]
+resource_name = "death"
+step = 0.166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Death:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.333333, 0.5, 0.666667, 0.833333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_mek3b"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Death:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Idle:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Damage:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Move:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Shoot:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_mun77"]
+resource_name = "idle"
+step = 0.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Idle:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_xnmov"]
+resource_name = "damaged"
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Damage:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_gcf8x"]
+resource_name = "move"
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Move:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_ho34q"]
+resource_name = "shoot"
+length = 1.33337
+loop_mode = 1
+step = 0.333333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Shoot:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.333333, 0.666667, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cldrh"]
+_data = {
+"RESET": SubResource("Animation_mek3b"),
+"damaged": SubResource("Animation_xnmov"),
+"death": SubResource("Animation_2qoij"),
+"idle": SubResource("Animation_mun77"),
+"move": SubResource("Animation_gcf8x"),
+"shoot": SubResource("Animation_ho34q")
+}
+
+[node name="Player" type="Node2D"]
+
+[node name="Damage" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(725, 501)
+texture = ExtResource("2_eutbd")
+vframes = 2
+region_enabled = true
+region_rect = Rect2(10.7891, 0, 27.1423, 52)
+
+[node name="Death" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(725, 474)
+texture = ExtResource("1_qrv84")
+vframes = 6
+region_enabled = true
+region_rect = Rect2(4.6235, 0, 31.895, 156)
+
+[node name="Move" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(721, 530)
+texture = ExtResource("3_bunup")
+vframes = 6
+region_enabled = true
+region_rect = Rect2(4.6235, 0, 31.895, 156)
+
+[node name="Shoot" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(722, 560)
+texture = ExtResource("4_34a4o")
+vframes = 6
+region_enabled = true
+region_rect = Rect2(4.6235, 0, 31.895, 156)
+
+[node name="Idle" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(724, 453)
+texture = ExtResource("1_akqgr")
+region_enabled = true
+region_rect = Rect2(12.4244, 0, 21.841, 26)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_cldrh")
+}
