@@ -1,0 +1,77 @@
+[gd_scene load_steps=12 format=3 uid="uid://cggehcp34lul"]
+
+[ext_resource type="Texture2D" uid="uid://1j10inrg3l7g" path="res://assets/character/Bot Wheel/move FX.png" id="1_eqi80"]
+[ext_resource type="Script" path="res://scripts/foot_step_fx.gd" id="2_dagag"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yugjt"]
+atlas = ExtResource("1_eqi80")
+region = Rect2(8, 15, 15, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cj7dw"]
+atlas = ExtResource("1_eqi80")
+region = Rect2(8, 39, 15, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ig6dn"]
+atlas = ExtResource("1_eqi80")
+region = Rect2(8, 63, 15, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_160ua"]
+atlas = ExtResource("1_eqi80")
+region = Rect2(8, 87, 15, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luyii"]
+atlas = ExtResource("1_eqi80")
+region = Rect2(8, 111, 15, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_773wt"]
+atlas = ExtResource("1_eqi80")
+region = Rect2(8, 135, 15, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4gl6t"]
+atlas = ExtResource("1_eqi80")
+region = Rect2(8, 159, 15, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hadct"]
+atlas = ExtResource("1_eqi80")
+region = Rect2(8, 183, 15, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ekwvv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yugjt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cj7dw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ig6dn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_160ua")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_luyii")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_773wt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4gl6t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hadct")
+}],
+"loop": true,
+"name": &"move_fx",
+"speed": 8.0
+}]
+
+[node name="FootStepFX" type="Node2D"]
+texture_filter = 1
+scale = Vector2(2, 2)
+
+[node name="MoveFx" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ekwvv")
+animation = &"move_fx"
+script = ExtResource("2_dagag")

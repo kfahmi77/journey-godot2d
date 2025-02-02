@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://dftml3fde7laa"]
+[gd_scene load_steps=47 format=3 uid="uid://dftml3fde7laa"]
 
 [ext_resource type="Script" path="res://scripts/character.gd" id="1_lwf4d"]
 [ext_resource type="Texture2D" uid="uid://bg00eo843g4to" path="res://assets/character/Bot Wheel/damaged.png" id="1_lxakc"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cc34ufvhs6yuh" path="res://assets/character/Bot Wheel/static idle.png" id="4_nyip8"]
 [ext_resource type="Texture2D" uid="uid://b327fhgpvnt1e" path="res://assets/character/Bot Wheel/shoot without FX.png" id="6_j77mo"]
 [ext_resource type="Texture2D" uid="uid://dg7icngk70lbi" path="res://assets/character/Bot Wheel/move without FX.png" id="6_xmako"]
+[ext_resource type="Texture2D" uid="uid://1j10inrg3l7g" path="res://assets/character/Bot Wheel/move FX.png" id="8_c5nia"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0bn5y"]
 
@@ -232,6 +233,70 @@ animations = [{
 "speed": 4.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_wpluh"]
+atlas = ExtResource("8_c5nia")
+region = Rect2(8, 183, 15, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8p4pa"]
+atlas = ExtResource("8_c5nia")
+region = Rect2(8, 159, 15, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ji6i6"]
+atlas = ExtResource("8_c5nia")
+region = Rect2(8, 135, 15, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lplnv"]
+atlas = ExtResource("8_c5nia")
+region = Rect2(8, 111, 15, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l1n5k"]
+atlas = ExtResource("8_c5nia")
+region = Rect2(8, 87, 15, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m12hd"]
+atlas = ExtResource("8_c5nia")
+region = Rect2(8, 63, 15, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wef0e"]
+atlas = ExtResource("8_c5nia")
+region = Rect2(8, 39, 15, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_snkdr"]
+atlas = ExtResource("8_c5nia")
+region = Rect2(8, 15, 15, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_peeuq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wpluh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8p4pa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ji6i6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lplnv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l1n5k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m12hd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wef0e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_snkdr")
+}],
+"loop": true,
+"name": &"move_fx",
+"speed": 8.0
+}]
+
 [node name="Character" type="CharacterBody2D"]
 script = ExtResource("1_lwf4d")
 
@@ -243,9 +308,18 @@ texture_filter = 1
 position = Vector2(1, -2)
 scale = Vector2(8, 8)
 sprite_frames = SubResource("SpriteFrames_mli6f")
-animation = &"dash"
+animation = &"move"
 
 [node name="IdleTimer" type="Timer" parent="."]
 wait_time = 1.5
+
+[node name="FxAnimated" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-96, 63)
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_peeuq")
+animation = &"move_fx"
+frame = 7
+frame_progress = 1.0
 
 [connection signal="timeout" from="IdleTimer" to="." method="_on_idle_timer_timeout"]
