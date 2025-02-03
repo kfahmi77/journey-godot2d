@@ -2,8 +2,11 @@ extends CharacterBody2D
 
 @export var speed = 300
 
-@onready var animated_sprite = $AnimatedSprite2D
-@onready var animated_fx = $FxAnimated
+@onready var character_sprite = $AnimatedSprite2D
+@onready var move_fx = $CharacterVfx/MoveVfx
+@onready var dash_fx =$CharacterVfx/DashVfx
+@onready var character_fx = $CharacterVfx
+
 
 @export var dash_speed = 800
 @export var dash_duration = 0.3
@@ -13,8 +16,8 @@ var can_dash = true
 var dash_direction = Vector2.ZERO
 
 func _ready():
-	animated_sprite.play("idle")
-	animated_fx.hide()  # Sembunyikan efek langkah di awal
+	character_sprite.play("idle")
+	move_fx.hide()  # Sembunyikan efek langkah di awal
 
 func _physics_process(_delta):
 	var direction = Vector2.ZERO
@@ -33,30 +36,30 @@ func _physics_process(_delta):
 	
 	# Flip sprite
 	if direction.x != 0:
-		animated_sprite.flip_h = direction.x < 0
+		character_sprite.flip_h = direction.x < 0
 	
 	# Kondisi untuk state berjalan
 	if direction != Vector2.ZERO and !is_dashing:
 		# Animasi berjalan
-		animated_sprite.play("move")
+		character_sprite.play("move")
 		
 		# Tampilkan efek langkah
-		if !animated_fx.visible:
-			animated_fx.show()
-			animated_fx.flip_h = animated_sprite.flip_h
+		if !move_fx.visible:
+			move_fx.show()
+			move_fx.flip_h = character_sprite.flip_h
 		if direction.x < 0 :
-			animated_fx.position.x = abs(animated_fx.position.x)
+			character_fx.position.x = abs(character_fx.position.x)
 		else :
-			animated_fx.position.x = -abs(animated_fx.position.x)
-		animated_fx.play("move_fx")  # Mainkan animasi efek langkah
+			character_fx.position.x = -abs(character_fx.position.x)
+		move_fx.play("move_fx")  # Mainkan animasi efek langkah
 	else:
 		# Animasi idle
-		animated_sprite.play("idle")
+		character_sprite.play("idle")
 		
 		# Sembunyikan efek langkah
-		if animated_fx.visible:
-			animated_fx.hide()
-			animated_fx.stop()  # Hentikan animasi efek langkah
+		if move_fx.visible:
+			move_fx.hide()
+			move_fx.stop()  # Hentikan animasi efek langkah
 	
 	move_and_slide()
 

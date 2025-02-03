@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://dftml3fde7laa"]
+[gd_scene load_steps=55 format=3 uid="uid://dftml3fde7laa"]
 
 [ext_resource type="Script" path="res://scripts/character.gd" id="1_lwf4d"]
 [ext_resource type="Texture2D" uid="uid://bg00eo843g4to" path="res://assets/character/Bot Wheel/damaged.png" id="1_lxakc"]
@@ -297,6 +297,63 @@ animations = [{
 "speed": 8.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_c23tx"]
+atlas = ExtResource("3_leiqd")
+region = Rect2(21, 0, 96, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_drou0"]
+atlas = ExtResource("3_leiqd")
+region = Rect2(21, 26, 96, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g67tq"]
+atlas = ExtResource("3_leiqd")
+region = Rect2(21, 52, 96, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gaabr"]
+atlas = ExtResource("3_leiqd")
+region = Rect2(21, 78, 96, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pvvtu"]
+atlas = ExtResource("3_leiqd")
+region = Rect2(21, 104, 96, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kt07c"]
+atlas = ExtResource("3_leiqd")
+region = Rect2(21, 130, 96, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rr13u"]
+atlas = ExtResource("3_leiqd")
+region = Rect2(21, 156, 96, 26)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7xvvo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c23tx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_drou0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g67tq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gaabr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pvvtu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kt07c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rr13u")
+}],
+"loop": true,
+"name": &"dash_vfx",
+"speed": 5.0
+}]
+
 [node name="Character" type="CharacterBody2D"]
 script = ExtResource("1_lwf4d")
 
@@ -313,13 +370,19 @@ animation = &"move"
 [node name="IdleTimer" type="Timer" parent="."]
 wait_time = 1.5
 
-[node name="FxAnimated" type="AnimatedSprite2D" parent="."]
-texture_filter = 1
+[node name="CharacterVfx" type="Node2D" parent="."]
 position = Vector2(-96, 63)
 scale = Vector2(4, 4)
+
+[node name="MoveVfx" type="AnimatedSprite2D" parent="CharacterVfx"]
+texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_peeuq")
 animation = &"move_fx"
-frame = 7
-frame_progress = 1.0
+
+[node name="DashVfx" type="AnimatedSprite2D" parent="CharacterVfx"]
+texture_filter = 1
+position = Vector2(22, 40.5)
+sprite_frames = SubResource("SpriteFrames_7xvvo")
+animation = &"dash_vfx"
 
 [connection signal="timeout" from="IdleTimer" to="." method="_on_idle_timer_timeout"]
