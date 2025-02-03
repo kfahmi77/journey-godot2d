@@ -349,13 +349,15 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_rr13u")
 }],
-"loop": true,
+"loop": false,
 "name": &"dash_vfx",
-"speed": 5.0
+"speed": 6.0
 }]
 
 [node name="Character" type="CharacterBody2D"]
 script = ExtResource("1_lwf4d")
+dash_speed = 1000
+dash_duration = 0.4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_0bn5y")
@@ -366,9 +368,6 @@ position = Vector2(1, -2)
 scale = Vector2(8, 8)
 sprite_frames = SubResource("SpriteFrames_mli6f")
 animation = &"move"
-
-[node name="IdleTimer" type="Timer" parent="."]
-wait_time = 1.5
 
 [node name="CharacterVfx" type="Node2D" parent="."]
 position = Vector2(-96, 63)
@@ -381,8 +380,6 @@ animation = &"move_fx"
 
 [node name="DashVfx" type="AnimatedSprite2D" parent="CharacterVfx"]
 texture_filter = 1
-position = Vector2(22, 40.5)
+position = Vector2(7.25, -1)
 sprite_frames = SubResource("SpriteFrames_7xvvo")
 animation = &"dash_vfx"
-
-[connection signal="timeout" from="IdleTimer" to="." method="_on_idle_timer_timeout"]

@@ -7,7 +7,6 @@ extends CharacterBody2D
 @onready var dash_fx =$CharacterVfx/DashVfx
 @onready var character_fx = $CharacterVfx
 
-
 @export var dash_speed = 800
 @export var dash_duration = 0.3
 @export var dash_cooldown = 2.0
@@ -17,6 +16,7 @@ var dash_direction = Vector2.ZERO
 
 func _ready():
 	character_sprite.play("idle")
+	dash_fx.hide()
 	move_fx.hide()  # Sembunyikan efek langkah di awal
 
 func _physics_process(_delta):
@@ -34,27 +34,36 @@ func _physics_process(_delta):
 	else:
 		velocity = direction * speed
 	
-	# Flip sprite
+	# Flip sprite dan dash effect
 	if direction.x != 0:
 		character_sprite.flip_h = direction.x < 0
+		dash_fx.flip_h = direction.x < 0
 	
-	# Kondisi untuk state berjalan
-	if direction != Vector2.ZERO and !is_dashing:
+	# Kondisi untuk animasi
+	if is_dashing:
+		# Animasi dash
+		dash_fx.show()
+		dash_fx.play("dash_vfx")
+		move_fx.hide()
+		move_fx.stop()
+	elif direction != Vector2.ZERO:
 		# Animasi berjalan
 		character_sprite.play("move")
+		dash_fx.hide()
 		
 		# Tampilkan efek langkah
 		if !move_fx.visible:
 			move_fx.show()
 			move_fx.flip_h = character_sprite.flip_h
-		if direction.x < 0 :
+		if direction.x < 0:
 			character_fx.position.x = abs(character_fx.position.x)
-		else :
+		else:
 			character_fx.position.x = -abs(character_fx.position.x)
 		move_fx.play("move_fx")  # Mainkan animasi efek langkah
 	else:
 		# Animasi idle
 		character_sprite.play("idle")
+		dash_fx.hide()
 		
 		# Sembunyikan efek langkah
 		if move_fx.visible:
@@ -68,6 +77,10 @@ func start_dash(direction: Vector2):
 	can_dash = false
 	dash_direction = direction.normalized()
 	
+	# Play dash animation
+	dash_fx.show()
+	dash_fx.play("dash_vfx")
+	
 	await get_tree().create_timer(dash_duration).timeout
 	end_dash()
 	
@@ -77,3 +90,4 @@ func start_dash(direction: Vector2):
 func end_dash():
 	is_dashing = false
 	velocity = Vector2.ZERO
+	dash_fx.hide()
